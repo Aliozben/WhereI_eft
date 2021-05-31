@@ -1,7 +1,9 @@
-var taskInput = document.getElementById("new-task"); // new-task
-var addButton = document.getElementsByTagName("button")[0]; //first button
-var labeledTasksHolder = document.getElementById("labeled-tasks"); //labeled-tasks
-var completedTasksHolder = document.getElementById("completed-tasks"); //completed-tasks
+var taskInput = document.getElementById("new-task");
+var addButton = document.getElementsByTagName("button")[0];
+var labeledTasksHolder = document.getElementById("labeled-tasks");
+var urls = localStorage.getItem("WILurls")
+  ? JSON.parse(localStorage.getItem("WILurls"))
+  : [];
 
 var createNewTaskElement = function (taskString) {
   var listItem = document.createElement("li");
@@ -25,26 +27,24 @@ var createNewTaskElement = function (taskString) {
 
   return listItem;
 };
-var urls =
-  localStorage.getItem("exURLS") !== null
-    ? JSON.parse(localStorage.getItem("exURLS"))
-    : [];
-console.log(urls);
-// urls.forEach(value => {
-//   console.log(value);
-//   var listItem = createNewTaskElement(value);
-//   labeledTasksHolder.appendChild(listItem);
-//   console.log("!");
-//   bindTaskEvents(listItem);
-// });
+
 var addTask = function () {
-  console.log("22");
   var listItem = createNewTaskElement(taskInput.value);
   urls.push(taskInput.value);
-  localStorage.setItem("exURLS", JSON.stringify(urls));
+  localStorage.setItem("WILurls", JSON.stringify(urls));
   labeledTasksHolder.appendChild(listItem);
   bindTaskEvents(listItem);
   taskInput.value = "";
+};
+
+var localSave = function (text) {
+  urls.push(text);
+  localStorage.setItem("WILurls", JSON.stringify(urls));
+};
+
+var localDelete = function (text) {
+  urls.splice(urls.indexOf(text), 1);
+  localStorage.setItem("WILurls", JSON.stringify(urls));
 };
 
 var editTask = function () {
@@ -57,9 +57,11 @@ var editTask = function () {
   if (containsClass) {
     //Switch from .editMode
     editBut.innerText = "Edit";
+    localSave(editInput.value);
     label.innerText = editInput.value;
   } else {
     editBut.innerText = "Save";
+    localDelete(label.innerText);
     editInput.value = label.innerText;
   }
   listItem.classList.toggle("editMode");
@@ -69,14 +71,21 @@ var deleteTask = function () {
   var listItem = this.parentNode;
   var ul = listItem.parentNode;
   ul.removeChild(listItem);
+  var text = listItem.getElementsByTagName("label")[0].innerText;
+  localDelete(text);
 };
 
 addButton.addEventListener("click", addTask);
 
 var bindTaskEvents = function (taskListItem) {
-  console.log("Bind List item events");
   var editButton = taskListItem.querySelector("button.edit");
   var deleteButton = taskListItem.querySelector("button.delete");
   editButton.onclick = editTask;
   deleteButton.onclick = deleteTask;
 };
+
+urls.forEach(value => {
+  var listItem = createNewTaskElement(value);
+  labeledTasksHolder.appendChild(listItem);
+  bindTaskEvents(listItem);
+});
