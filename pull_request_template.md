@@ -1,39 +1,41 @@
-# Description
+**If this is a Bug-fix PR,**
+* What is the problem you fixed in this PR?
 
-Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
+* What is the root cause of the problem?
 
-Fixes # (issue)
+* How did you fix this problem?
 
-## Type of change
+**If this is a Feature PR,**
+* Provide details about the feature.
 
-Please delete options that are not relevant.
+--------------------------------------------------------------------------------
+**Regardless of the PR type, answer the questions below:**
 
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] This change requires a documentation update
+Any related PRs?
 
-# How Has This Been Tested?
+Did you make a **Liquibase** change and test this change on your developer VM?
 
-Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
+Do you need to add/update any **Help Drawer text** along with this PR?
 
-- [ ] Test A
-- [ ] Test B
+* If YES, did you add the Help Text in English and French?
 
-**Test Configuration**:
+Do you need to add/update any **Tooltip** along with this PR?
 
-- Firmware version:
-- Hardware:
-- Toolchain:
-- SDK:
+* Did you add the Tooltip?
 
-# Checklist:
+* Did you add the French of the Tooltip? (If NOT, please create a subtask for French.)
 
-- [ ] My code follows the style guidelines of this project
-- [ ] I have performed a self-review of my own code
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
-- [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] Any dependent changes have been merged and published in downstream modules
+Did you add/update any **API components** along with this PR?
+
+* Did you update English API documentation?
+
+* Did you update the API Release Notes?
+
+*Did you change the behaviour of an API? If YES, did you communicate this with your Scrum Master and/or PLM?
+* [ ] Yes
+* [ ] No
+
+Did you have a **UI update** on End User Portal? If YES,
+* create a subtask for French,
+* create a subtask for Portuguese under the epic ACL-20849,
+* create a subtask for Spanish under the epic ACL-20848.
