@@ -28,7 +28,7 @@ var getCurrentEpisode = function () {
       var episode = document.querySelectorAll("a.active")[0].dataset["kname"];
       if (url === lastUrl) request(episode, name, websiteNames.swatchseries);
       lastUrl = url;
-    }, 600000);
+    }, 4000);
   }
 };
 
