@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "content_scripts": [
     {
-      "matches": ["https://www4.swatchseries.ru/*"],
+      "matches": ["https://www5.swatchseries.ru/*"],
       "js": ["content.js"]
     }
   ],

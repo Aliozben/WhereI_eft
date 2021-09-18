@@ -24,6 +24,7 @@ var getCurrentEpisode = function () {
       value = value.charAt(0).toUpperCase() + value.slice(1);
       name += value + " ";
     });
+    name = name.trim();
     setTimeout(() => {
       var episode = document.querySelectorAll("a.active")[0].dataset["kname"];
       if (url === lastUrl) request(episode, name, websiteNames.swatchseries);
