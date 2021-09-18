@@ -34,7 +34,6 @@ type RichText = {
 export const updateRichTextOnPage = async (
   id: string,
   title: string,
-  //content: string,
   richText: RichTextInput[]
 ) => {
   const response = await notion.pages.update({
@@ -46,7 +45,7 @@ export const updateRichTextOnPage = async (
       },
     },
   });
-  console.log(response);
+  console.log("updateRichTextOnPage ->", response);
 };
 
 export const updateDateOnPage = async (

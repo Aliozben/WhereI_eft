@@ -1,7 +1,6 @@
 var url = document.URL;
 var lastUrl = url;
 
-alert("Hello");
 var websiteNames = {
   swatchseries: "swatchseries",
 };
@@ -14,8 +13,7 @@ setTimeout(() => {
   );
 }, 3000);
 
-var getCurrentEpisode = function () {
-  alert("getCurrentEpisode");
+var getCurrentEpisode = (function () {
   if (document.URL.includes(websiteNames.swatchseries)) {
     var names = url.split("/")[4].split("-");
     names = names.slice(0, -1);
@@ -28,11 +26,11 @@ var getCurrentEpisode = function () {
     setTimeout(() => {
       var episode = document.querySelectorAll("a.active")[0].dataset["kname"];
       if (url === lastUrl) request(episode, name, websiteNames.swatchseries);
+      else getCurrentEpisode();
       lastUrl = url;
     }, 4000);
   }
-};
-
+})();
 var didPageChange = function () {
   lastUrl = url;
   url = document.URL;
@@ -47,5 +45,3 @@ var request = function (episode, show, website) {
     body: JSON.stringify({episode, show, website}),
   });
 };
-
-getCurrentEpisode();
