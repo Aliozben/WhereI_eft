@@ -1,3 +1,4 @@
 export const WEBSITES = {
-  swatchseries: "swatchseries",
+  SWATCHSERIES: "swatchseries",
+  NEXT_EPISODE: "https://next-episode.net/",
 };

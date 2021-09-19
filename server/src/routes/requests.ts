@@ -1,11 +1,9 @@
 import Router, {Response, Request} from "express";
 
-import {WEBSITES} from "./constants/WEBSITES";
-import COLUMN_NAMES from "./constants/COLUMNS";
-import {convertToTwoDigits} from "./utils/utils";
-import {getPageFromDb, updateRichTextOnPage} from "./utils/notionUtils";
+import COLUMN_NAMES from "../constants/COLUMNS";
+import {convertToTwoDigits} from "../utils/utils";
+import {getPageFromDb, updateRichTextOnPage} from "../utils/notionUtils";
 import {
-  PropertyValue,
   RichTextInput,
   RichTextPropertyValue,
 } from "@notionhq/client/build/src/api-types";

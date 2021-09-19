@@ -1,13 +1,9 @@
-import Router, {Response, Request} from "express";
-import dotenv from "dotenv";
+import {config} from "dotenv";
 import {Client} from "@notionhq/client";
-
-import COLUMN_NAMES from "../constants/COLUMNS";
 import {RichTextInput} from "@notionhq/client/build/src/api-types";
 
-dotenv.config();
+config();
 
-export const notionRouter = Router();
 const notion = new Client({auth: process.env.NOTION_API_KEY});
 const databaseId = process.env.NOTION_DATABASE_ID!;
 
@@ -23,13 +19,6 @@ export const getPageFromDb = async (name: string) => {
   });
   return response.results[0];
 };
-
-type RichText = {
-  type: "text";
-  text: {
-    content: string;
-  };
-}[];
 
 export const updateRichTextOnPage = async (
   id: string,

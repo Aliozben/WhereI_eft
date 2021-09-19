@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
-import puppeteer from "puppeteer";
 
-import {request} from "./requests";
+import {request} from "./routes/requests";
 
 const app = express();
 
