@@ -1,7 +1,7 @@
 const COLUMN_NAMES = {
-  NAME: "Name",
+  TITLE: "Name",
   WATCHED_EPISODE: "Watched Episoded",
-  LATEST_EPISODE: "New Episode",
-  NEW_EPISODE_DATE: "Latest Episode",
+  LATEST_EPISODE: "Latest Episode",
+  NEW_EPISODE_DATE: "New Episode",
 };
 export default COLUMN_NAMES;

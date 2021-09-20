@@ -2,7 +2,7 @@ import Router, {Response, Request} from "express";
 
 import COLUMN_NAMES from "../constants/COLUMNS";
 import {convertToTwoDigits} from "../utils/utils";
-import {getPageFromDb, updateRichTextOnPage} from "../utils/notionUtils";
+import {getPageFromDbByName, updateRichTextOnPage} from "../utils/notionUtils";
 import {
   RichTextInput,
   RichTextPropertyValue,
@@ -14,7 +14,7 @@ request.post("/episode", async (req: Request, res: Response) => {
   const {episode, show, website} = req.body;
   console.log(req.body);
 
-  const page = await getPageFromDb(show);
+  const page = await getPageFromDbByName(show);
   const watchedSeasonEpisode = page.properties[
     COLUMN_NAMES.WATCHED_EPISODE
   ] as RichTextPropertyValue;

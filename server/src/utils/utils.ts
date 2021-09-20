@@ -11,5 +11,9 @@ export const formatDate = (date: Date) => {
   const monthString = month < 10 ? "0" + month : month;
 
   const year = date.getFullYear();
-  return year + "-" + month + "-" + day;
+  return year + "-" + monthString + "-" + dayString;
+};
+
+export const replaceSpaceWithDash = (text: string) => {
+  return text.split(" ").join("-");
 };
