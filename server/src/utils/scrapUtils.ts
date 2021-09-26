@@ -4,10 +4,11 @@ import rp from "request-promise";
 
 import {formatDate, convertToTwoDigits, replaceSpaceWithDash} from "./utils";
 import {WEBSITES} from "../constants/WEBSITES";
+import {SCRAP_PATHS} from "../constants/SCRAP_PATHS";
 
 export const getNextEpisodeDate = async (
   name: string
-): Promise<string | null> => {
+): Promise<string | null | void> => {
   const dashedName = replaceSpaceWithDash(name);
   const response = await rp
     .get({
@@ -17,7 +18,7 @@ export const getNextEpisodeDate = async (
       },
     })
     .then($ => {
-      const nextEpisode = $("#next_episode").text();
+      const nextEpisode = $(SCRAP_PATHS.NEXT_EPISODE_DATE).text();
       const dateIndex = nextEpisode.indexOf("Date:");
 
       if (dateIndex === -1) return null;
@@ -27,13 +28,13 @@ export const getNextEpisodeDate = async (
       console.log("getNextEpisodeDate", realeseDate);
 
       return realeseDate;
-    });
-  // .catch(err => console.log(err));
-  return response as string;
+    })
+    .catch(err => console.log(err));
+  return response;
 };
 export const getLatestEpisode = async (
   name: string
-): Promise<string | null> => {
+): Promise<string | null | void> => {
   const dashedName = replaceSpaceWithDash(name);
   const response = await rp
     .get({
@@ -43,21 +44,18 @@ export const getLatestEpisode = async (
       },
     })
     .then($ => {
-      const nextEpisode = $("#next_episode").text();
-      console.log(nextEpisode);
-      const seasonIndex = nextEpisode.indexOf("Season:");
+      const latestEpisode = $(SCRAP_PATHS.LATEST_EPISODE).text();
+      const latestSeason = $(SCRAP_PATHS.LATEST_SEASON).text();
 
+      const seasonIndex = latestSeason.indexOf("Season:");
       if (seasonIndex === -1) return null;
 
       const season = convertToTwoDigits(
-        parseInt(nextEpisode.slice(seasonIndex + 7, seasonIndex + 9).trim())
+        parseInt(latestSeason.slice(seasonIndex + 7, seasonIndex + 9).trim())
       );
-      const epIndex = nextEpisode.indexOf("Episode:") + 8;
-      const episode = convertToTwoDigits(
-        parseInt(nextEpisode.slice(epIndex, epIndex + 2).trim())
-      );
+      const episode = convertToTwoDigits(parseInt(latestEpisode));
       return "S" + season + "E" + episode;
-    });
-  // .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
   return response;
 };
