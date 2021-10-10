@@ -14,6 +14,7 @@ import {
   updateRichTextOnPage,
 } from "./utils/notionUtils";
 import COLUMN_NAMES from "./constants/COLUMNS";
+import rp from "request-promise";
 const app = express();
 
 app.use(express.json());
@@ -24,11 +25,24 @@ app.use(
 );
 app.use(request);
 
-app.listen(5000, () => {
+app.listen(5001, () => {
   console.log("port 5000 is running.");
 });
-
-console.log(getNextEpisodeDate("archer"));
+rp.get({uri:"https://api.themoviedb.org/3/search/tv",qs:{
+  api_key:"3ef7d32ef7c85f488d6a044270f8908a",
+  query:"archer"
+}}).then(res=>{
+  const result = JSON.parse(res);
+  console.log(result.results[0])
+}).catch(err=> console.log(err));
+// (async ()=>{
+//   const shows = await retriveAllPagesFromDb();
+//   shows.forEach(async show =>{
+//     const showName = (show.properties[COLUMN_NAMES.TITLE] as TitlePropertyValue).title[0].plain_text;
+//     console.log(showName);
+//   })
+// })();
+// console.log(getNextEpisodeDate("archer"));
 // (async () => {
 //   const shows = await retriveAllPagesFromDb();
 //   shows.forEach(async show => {
