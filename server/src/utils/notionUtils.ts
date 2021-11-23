@@ -4,6 +4,7 @@ import {
   RichTextInput,
   TitlePropertyValue,
 } from "@notionhq/client/build/src/api-types";
+import {PagesUpdateParameters} from "@notionhq/client/build/src/api-endpoints";
 
 config();
 
@@ -11,16 +12,20 @@ const notion = new Client({auth: process.env.NOTION_API_KEY});
 const databaseId = process.env.NOTION_DATABASE_ID!;
 
 export const getPageFromDbByName = async (name: string) => {
-  const response = await notion.databases.query({
-    database_id: databaseId,
-    filter: {
-      property: "Name",
-      text: {
-        equals: name,
+  try {
+    const response = await notion.databases.query({
+      database_id: databaseId,
+      filter: {
+        property: "Name",
+        text: {
+          equals: name,
+        },
       },
-    },
-  });
-  return response.results[0];
+    });
+    return response.results[0];
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const retriveAllPagesFromDb = async () => {
@@ -47,7 +52,7 @@ export const updateRichTextOnPage = async (
         rich_text: richText,
       },
     },
-  });
+  } as PagesUpdateParameters);
   console.log("updateRichTextOnPage ->", response);
 };
 
@@ -67,7 +72,7 @@ export const updateDateOnPage = async (
         },
       },
     },
-  });
+  } as PagesUpdateParameters);
 };
 
 export const updateTitleOnPage = async (
@@ -90,5 +95,5 @@ export const updateTitleOnPage = async (
         ],
       },
     },
-  });
+  } as PagesUpdateParameters);
 };

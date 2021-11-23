@@ -15,5 +15,7 @@ export const formatDate = (date: Date) => {
 };
 
 export const replaceSpaceWithDash = (text: string) => {
+  text = text.replace(/'/g, "");
+  text = text.replace(/&/g, "and");
   return text.split(" ").join("-");
 };

@@ -15,6 +15,7 @@ request.post("/episode", async (req: Request, res: Response) => {
   console.log(req.body);
   try {
     const page = await getPageFromDbByName(show);
+    if (page === undefined) return;
     const watchedSeasonEpisode = page.properties[
       COLUMN_NAMES.WATCHED_EPISODE
     ] as RichTextPropertyValue;
@@ -45,6 +46,11 @@ request.post("/episode", async (req: Request, res: Response) => {
         },
         annotations: {
           color: "gray",
+          bold: false,
+          code: false,
+          italic: false,
+          strikethrough: false,
+          underline: false,
         },
       },
       {
@@ -54,6 +60,11 @@ request.post("/episode", async (req: Request, res: Response) => {
         },
         annotations: {
           color: "brown",
+          bold: false,
+          code: false,
+          italic: false,
+          strikethrough: false,
+          underline: false,
         },
       },
     ];

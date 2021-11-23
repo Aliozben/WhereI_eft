@@ -1,4 +1,3 @@
-import request from "request";
 import cheerio from "cheerio";
 import rp from "request-promise";
 
@@ -44,8 +43,10 @@ export const getLatestEpisode = async (
       },
     })
     .then($ => {
-      const latestEpisode = $(SCRAP_PATHS.LATEST_EPISODE).text();
-      const latestSeason = $(SCRAP_PATHS.LATEST_SEASON).text();
+      const latestEpisode: string = $(SCRAP_PATHS.LATEST_EPISODE)
+        .text()
+        .slice(-2);
+      const latestSeason: string = $(SCRAP_PATHS.LATEST_SEASON).text();
 
       const seasonIndex = latestSeason.indexOf("Season:");
       if (seasonIndex === -1) return null;

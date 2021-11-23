@@ -38,6 +38,11 @@ export const fetchNewEpisodes = () => {
               },
               annotations: {
                 color: "red_background",
+                bold: false,
+                code: false,
+                italic: false,
+                strikethrough: false,
+                underline: false,
               },
             },
           ];
