@@ -32,7 +32,6 @@ var getCurrentEpisode = function () {
   }
 };
 var didPageChange = function () {
-  alert("didPageChange");
   lastUrl = url;
   setTimeout(() => {
     url = document.URL;
@@ -40,7 +39,6 @@ var didPageChange = function () {
   }, 1000);
 };
 var request = function (episode, show, website) {
-  alert("hello");
   fetch("https://whereileft.herokuapp.com/episode", {
     method: "POST",
     headers: {
