@@ -13,7 +13,7 @@ setTimeout(() => {
   );
 }, 3000);
 
-var getCurrentEpisode = (function () {
+var getCurrentEpisode = function () {
   if (document.URL.includes(websiteNames.swatchseries)) {
     var names = url.split("/")[4].split("-");
     names = names.slice(0, -1);
@@ -28,16 +28,20 @@ var getCurrentEpisode = (function () {
       if (url === lastUrl) request(episode, name, websiteNames.swatchseries);
       else getCurrentEpisode();
       lastUrl = url;
-    }, 4000);
+    }, 300000);
   }
-})();
+};
 var didPageChange = function () {
+  alert("didPageChange");
   lastUrl = url;
-  url = document.URL;
-  if (document.URL !== lastUrl) getCurrentEpisode();
+  setTimeout(() => {
+    url = document.URL;
+    if (document.URL !== lastUrl) getCurrentEpisode();
+  }, 1000);
 };
 var request = function (episode, show, website) {
-  fetch("http://localhost:5000/episode", {
+  alert("hello");
+  fetch("https://whereileft.herokuapp.com/episode", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -45,3 +49,5 @@ var request = function (episode, show, website) {
     body: JSON.stringify({episode, show, website}),
   });
 };
+
+getCurrentEpisode();
