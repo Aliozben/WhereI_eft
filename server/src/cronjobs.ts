@@ -27,7 +27,6 @@ export const fetchNewEpisodes = () => {
         console.log(showName, date);
         if (date)
           updateDateOnPage(show.id, COLUMN_NAMES.NEW_EPISODE_DATE, date);
-        else console.log("1", showName);
         const episode = await getLatestEpisode(showName);
         if (episode) {
           const richEpisode: RichTextInput[] = [

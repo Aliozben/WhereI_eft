@@ -21,9 +21,7 @@ request.post("/episode", async (req: Request, res: Response) => {
     const page = await getPageFromDbByName(show);
     const seasonEpidose: [number, number] = episode.split(":");
     const season = "S" + convertToTwoDigits(seasonEpidose[0]);
-    console.log(season);
     const ep = "E" + convertToTwoDigits(seasonEpidose[1]);
-    console.log(ep);
     if (page === undefined) {
       const newPage = await createNewPage(show, season + ep);
       res.status(200).send(newPage);
@@ -32,7 +30,6 @@ request.post("/episode", async (req: Request, res: Response) => {
     const watchedSeasonEpisode = page.properties[
       COLUMN_NAMES.WATCHED_EPISODE
     ] as RichTextPropertyValue;
-    console.log(watchedSeasonEpisode);
     const richText: RichTextInput[] = [
       {
         type: "text",
@@ -82,10 +79,7 @@ request.post("/episode", async (req: Request, res: Response) => {
       watchedSeasonEpisode.rich_text[1].plain_text.slice(1)
     );
     if (watchedSeason > seasonEpidose[0]) return;
-    if (
-      watchedSeason === seasonEpidose[0] &&
-      watchedEpisode >= seasonEpidose[1]
-    )
+    if (watchedSeason == seasonEpidose[0] && watchedEpisode >= seasonEpidose[1])
       return;
 
     await updateRichTextOnPage(page.id, COLUMN_NAMES.WATCHED_EPISODE, richText);
