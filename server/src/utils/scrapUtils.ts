@@ -28,7 +28,9 @@ export const getNextEpisodeDate = async (
 
       return realeseDate;
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      console.error(`Couldn't found the date of next episode for '${name}'`)
+    );
   return response;
 };
 export const getLatestEpisode = async (
@@ -57,6 +59,8 @@ export const getLatestEpisode = async (
       const episode = convertToTwoDigits(parseInt(latestEpisode));
       return "S" + season + "E" + episode;
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      console.error(`Couldn't found latest episode for '${name}'.`)
+    );
   return response;
 };

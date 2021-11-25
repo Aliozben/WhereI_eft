@@ -24,7 +24,7 @@ export const getPageFromDbByName = async (name: string) => {
     });
     return response.results[0];
   } catch (error) {
-    console.error(error);
+    console.error("Could't find the page. Error: ", error);
   }
 };
 
@@ -96,4 +96,71 @@ export const updateTitleOnPage = async (
       },
     },
   } as PagesUpdateParameters);
+};
+
+export const createNewPage = async (name: string, episode: string) => {
+  const response = await notion.pages.create({
+    parent: {database_id: databaseId},
+    properties: {
+      "Latest Episode": {
+        type: "rich_text",
+        rich_text: [
+          {
+            type: "text",
+            text: {content: "TBA"},
+            annotations: {
+              bold: false,
+              italic: false,
+              strikethrough: false,
+              underline: false,
+              code: false,
+              color: "red_background",
+            },
+            plain_text: "TBA",
+          },
+        ],
+      },
+      "New Episode": {
+        type: "date",
+        date: {start: "1000-01-01"},
+      },
+      "Watched Episode": {
+        type: "rich_text",
+        rich_text: [
+          {
+            type: "text",
+            text: {content: episode},
+            annotations: {
+              bold: false,
+              italic: false,
+              strikethrough: false,
+              underline: false,
+              code: false,
+              color: "default",
+            },
+            plain_text: episode,
+          },
+        ],
+      },
+      Name: {
+        id: "title",
+        type: "title",
+        title: [
+          {
+            type: "text",
+            text: {content: name},
+            annotations: {
+              bold: false,
+              italic: false,
+              strikethrough: false,
+              underline: false,
+              code: false,
+              color: "default",
+            },
+            plain_text: name,
+          },
+        ],
+      },
+    },
+  });
 };
