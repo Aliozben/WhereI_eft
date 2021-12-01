@@ -98,7 +98,11 @@ export const updateTitleOnPage = async (
   } as PagesUpdateParameters);
 };
 
-export const createNewPage = async (name: string, episode: string) => {
+export const createNewPage = async (
+  name: string,
+  season: string,
+  episode: string
+) => {
   const response = await notion.pages.create({
     parent: {database_id: databaseId},
     properties: {
@@ -129,16 +133,31 @@ export const createNewPage = async (name: string, episode: string) => {
         rich_text: [
           {
             type: "text",
-            text: {content: episode},
+            text: {
+              content: season,
+            },
             annotations: {
+              color: "gray",
               bold: false,
+              code: false,
               italic: false,
               strikethrough: false,
               underline: false,
-              code: false,
-              color: "default",
             },
-            plain_text: episode,
+          },
+          {
+            type: "text",
+            text: {
+              content: episode,
+            },
+            annotations: {
+              color: "brown",
+              bold: false,
+              code: false,
+              italic: false,
+              strikethrough: false,
+              underline: false,
+            },
           },
         ],
       },

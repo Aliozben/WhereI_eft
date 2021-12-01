@@ -23,7 +23,7 @@ request.post("/episode", async (req: Request, res: Response) => {
     const season = "S" + convertToTwoDigits(seasonEpidose[0]);
     const ep = "E" + convertToTwoDigits(seasonEpidose[1]);
     if (page === undefined) {
-      const newPage = await createNewPage(show, season + ep);
+      const newPage = await createNewPage(show, season, ep);
       res.status(200).send(newPage);
       return;
     }
