@@ -7,7 +7,6 @@ var websiteNames = {
 
 setTimeout(() => {
   var episodeButtons = document.getElementsByClassName("bl-servers");
-
   Object.values(episodeButtons).forEach(element =>
     element.addEventListener("click", didPageChange)
   );
@@ -24,8 +23,13 @@ var getCurrentEpisode = function () {
     });
     name = name.trim();
     setTimeout(() => {
-      var episode = document.querySelectorAll("a.active")[0].dataset["kname"];
-      if (url === lastUrl) request(episode, name, websiteNames.swatchseries);
+      var watchedEpisode = document
+        .querySelectorAll("a.active")[0]
+        .dataset["kname"].split("-");
+      var season = watchedEpisode[0];
+      var episode = watchedEpisode[1];
+      if (url === lastUrl)
+        request(`${season}:${episode}`, name, websiteNames.swatchseries);
       else getCurrentEpisode();
       lastUrl = url;
     }, 300000);
@@ -39,7 +43,7 @@ var didPageChange = function () {
   }, 1000);
 };
 var request = function (episode, show, website) {
-  fetch("https://whereileft.herokuapp.com/episode", {
+  fetch("https://wherei-eft.onrender.com/episode", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
